@@ -1,5 +1,6 @@
 import React from 'react';
 import { Trophy, Users, Banknote, Zap } from 'lucide-react';
+import { useReveal } from './useReveal';
 
 const benefits = [
   {
@@ -25,6 +26,8 @@ const benefits = [
 ];
 
 const Benefits = () => {
+  const { ref, visible } = useReveal({ threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
   return (
     <section id="benefits" className="relative w-full bg-[#0A0B14] py-24 text-white">
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
@@ -33,7 +36,7 @@ const Benefits = () => {
         }} />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div ref={ref} className={`relative mx-auto max-w-7xl px-6 transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
         <h2 className="mb-10 text-2xl font-semibold tracking-tight sm:text-3xl">Benefits</h2>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

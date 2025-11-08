@@ -1,5 +1,6 @@
 import React from 'react';
 import { Code2, Cpu, Globe, ShieldCheck, Sparkles } from 'lucide-react';
+import { useReveal } from './useReveal';
 
 const tracks = [
   {
@@ -29,6 +30,8 @@ const tracks = [
 ];
 
 const Tracks = () => {
+  const { ref, visible } = useReveal({ threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+
   return (
     <section id="tracks" className="relative w-full bg-[#0A0B14] py-24 text-white">
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
@@ -37,7 +40,7 @@ const Tracks = () => {
         }} />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div ref={ref} className={`relative mx-auto max-w-7xl px-6 transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
         <div className="mb-10 flex items-center gap-2">
           <Sparkles className="h-5 w-5 text-cyan-300" />
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">Tracks</h2>
