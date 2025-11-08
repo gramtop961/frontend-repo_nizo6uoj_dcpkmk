@@ -1,6 +1,8 @@
 import React from 'react';
 import { Trophy, Users, Banknote, Zap } from 'lucide-react';
 import { useReveal } from './useReveal';
+import SectionScene from './SectionScene';
+import SectionHeader from './SectionHeader';
 
 const benefits = [
   {
@@ -29,7 +31,8 @@ const Benefits = () => {
   const { ref, visible } = useReveal({ threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
 
   return (
-    <section id="benefits" className="relative w-full bg-[#0A0B14] py-24 text-white">
+    <section id="benefits" className="relative w-full overflow-hidden bg-[#0A0B14] py-28 text-white">
+      <SectionScene />
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div className="absolute inset-0" style={{
           backgroundImage: 'radial-gradient(700px 350px at 20% 30%, rgba(56,189,248,0.15), transparent 60%), radial-gradient(700px 350px at 80% 50%, rgba(124,58,237,0.12), transparent 60%)'
@@ -37,11 +40,11 @@ const Benefits = () => {
       </div>
 
       <div ref={ref} className={`relative mx-auto max-w-7xl px-6 transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-        <h2 className="mb-10 text-2xl font-semibold tracking-tight sm:text-3xl">Benefits</h2>
+        <h2 className="relative z-10 mb-10 text-center text-2xl font-semibold tracking-tight sm:text-3xl">Benefits</h2>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {benefits.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+        <div className="relative z-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {benefits.map(({ icon: Icon, title, desc }, i) => (
+            <div key={title} className="relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur" style={{ transition: 'transform 700ms ease, opacity 700ms ease', transitionDelay: visible ? `${i * 90}ms` : '0ms', transform: visible ? 'translateY(0px)' : 'translateY(12px)', opacity: visible ? 1 : 0 }}>
               <Icon className="h-6 w-6 text-cyan-300" />
               <h3 className="mt-3 text-lg font-semibold">{title}</h3>
               <p className="mt-2 text-sm text-white/70">{desc}</p>

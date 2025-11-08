@@ -20,6 +20,7 @@ const Hero = () => {
       const rotate = progress * 3; // tiny rotate
       if (sceneRef.current) {
         sceneRef.current.style.transform = `translateY(${translateY}px) scale(${scale}) rotate(${rotate}deg)`;
+        sceneRef.current.style.opacity = String(clamp(0.6 + progress * 0.4, 0.6, 1));
       }
 
       // Fade content out a bit as user scrolls past hero
@@ -40,7 +41,7 @@ const Hero = () => {
       {/* 3D Scene */}
       <div ref={sceneRef} className="absolute inset-0 will-change-transform transition-transform duration-75 ease-out">
         <Spline
-          scene="https://prod.spline.design/EaQv24wazlheTQrd/scene.splinecode"
+          scene="https://prod.spline.design/N8g2VNcx8Rycz93J/scene.splinecode"
           style={{ width: '100%', height: '100%' }}
         />
       </div>
@@ -70,7 +71,7 @@ const Hero = () => {
         </h1>
 
         <p className="mt-4 max-w-2xl text-pretty text-base text-white/70 sm:text-lg">
-          A chrome spiral torus comes alive as you scroll. Keep going — sections reveal themselves when you reach them.
+          A futuristic cubic core with iridescent spheres follows your scroll. Keep going — each section reveals with motion.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-sm text-white/80">

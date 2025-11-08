@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Mail, Send } from 'lucide-react';
+import { useReveal } from './useReveal';
+import SectionScene from './SectionScene';
 
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('');
+  const { ref, visible } = useReveal({ threshold: 0.15 });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,7 +19,7 @@ const Contact = () => {
     try {
       // For now, just simulate a send
       await new Promise((res) => setTimeout(res, 800));
-      setStatus('Thanks! We\'ll be in touch soon.');
+      setStatus("Thanks! We'll be in touch soon.");
       setForm({ name: '', email: '', message: '' });
     } catch (err) {
       setStatus('Something went wrong. Please try again.');
@@ -24,20 +27,21 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="relative w-full bg-[#0A0B14] py-24 text-white">
+    <section id="contact" className="relative w-full overflow-hidden bg-[#0A0B14] py-28 text-white">
+      <SectionScene />
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div className="absolute inset-0" style={{
           backgroundImage: 'radial-gradient(700px 350px at 10% 80%, rgba(56,189,248,0.12), transparent 60%), radial-gradient(700px 350px at 90% 60%, rgba(124,58,237,0.12), transparent 60%)'
         }} />
       </div>
 
-      <div className="relative mx-auto max-w-3xl px-6">
-        <div className="mb-6 flex items-center gap-2">
+      <div ref={ref} className={`relative mx-auto max-w-3xl px-6 transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className="mb-6 flex items-center gap-2" style={{ transition: 'transform 700ms ease, opacity 700ms ease', transitionDelay: visible ? '60ms' : '0ms', transform: visible ? 'translateY(0px)' : 'translateY(12px)', opacity: visible ? 1 : 0 }}>
           <Mail className="h-5 w-5 text-violet-300" />
           <h2 className="text-2xl font-semibold sm:text-3xl">Contact Us</h2>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" style={{ transition: 'transform 700ms ease, opacity 700ms ease', transitionDelay: visible ? '140ms' : '0ms', transform: visible ? 'translateY(0px)' : 'translateY(12px)', opacity: visible ? 1 : 0 }}>
           <div>
             <label className="mb-2 block text-sm text-white/80">Name</label>
             <input
